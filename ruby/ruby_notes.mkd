@@ -1,0 +1,13 @@
+Ruby's notes
+============
+-----------
+
+First day
+---------
+
+Ruby API 文档 :
+
+```python
+if True:
+    print "hi"
+```
