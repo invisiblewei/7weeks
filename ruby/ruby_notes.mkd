@@ -5,9 +5,23 @@ Ruby's notes
 First day
 ---------
 
-Ruby API 文档 :
+1. [Ruby API 文档](http://ruby-doc.org)
 
-```python
-if True:
-    print "hi"
+1. [Programming Ruby: The Pragmatic Programmer's Guide](ruby-doc.com/docs/ProgrammingRuby/)
+
+1. 替换字符串的一部分
+```ruby
+a = "hello"; a[2, 4]    = "xyz"; a
+```
+
+1. 正则表达式
+```ruby
+reg = /ru\/by/
+reg=Regexp.new(“ru/by”) 	
+reg=%r(ru/by)
+#正则表达式的选项
+/ab/i=~"12AB"               #=>2忽略大小写
+/a b/x=~"12ab"              #=>2忽略空白和#号后的内容
+/b#def/x =~ "ab"?           #=>1
+/a.b/m=~"12a\nbc"           #=>2让'.'可以匹配多行
 ```
