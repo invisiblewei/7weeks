@@ -5,16 +5,18 @@ Ruby's notes
 First day
 ---------
 
-1. [Ruby API 文档](http://ruby-doc.org)
+- [Ruby API 文档](http://ruby-doc.org)
 
-1. [Programming Ruby: The Pragmatic Programmer's Guide](ruby-doc.com/docs/ProgrammingRuby/)
+- [Programming Ruby: The Pragmatic Programmer's Guide](ruby-doc.com/docs/ProgrammingRuby/)
 
-1. 替换字符串的一部分
+- 替换字符串的一部分
+
 ```ruby
 a = "hello"; a[2, 4]    = "xyz"; a
 ```
 
-1. 正则表达式
+- 正则表达式
+
 ```ruby
 reg = /ru\/by/
 reg=Regexp.new(“ru/by”) 	
@@ -25,3 +27,62 @@ reg=%r(ru/by)
 /b#def/x =~ "ab"?           #=>1
 /a.b/m=~"12a\nbc"           #=>2让'.'可以匹配多行
 ```
+具体参考:[Ruby 正则表达式 ](blog.csdn.net/menxu_work/article/details/9134447)
+
+- 有关range的资料
+```ruby
+a = "hello there"
+a[1] 	         #=>	101
+a[2,3] 	         #=>"llo"
+a[2..3] 	         #=> "ll"
+a[-3,2]          #=> "er"
+a[-4..-2]        #=>	"her"
+a[-2..-4]        #=> nil
+a[/th[aeiou]/] 	#=> 	"the"
+a["lo"]         	#=> 	"lo"
+a["bye"] 	    #=> 	nil
+```
+
+- 打印字符串"Hello, world."
+```ruby
+p 'Hello, world.'
+```
+
+- 找出Ruby所在下标
+```ruby
+a = 'Hello, Ruby.'
+a =~ /Ruby/ #=>7
+```
+
+- 打印名字十遍
+```ruby
+print("invisiblewei\n"*10)
+```
+
+- 打印字符串十遍,变化的
+```ruby
+n = 5
+(1..n).each do |i|
+    puts "each #{i}"
+end
+```
+
+- 从文件运行
+```ruby
+#!/usr/bin/ruby
+```
+
+- 猜随机数
+```ruby
+#!/usr/bin/ruby
+ans = rand(10)
+puts "Guess a number between 0 to 9."
+begin
+    a = gets().to_i
+    puts "You guess #{a}."
+    puts "wrong! try again." if not a == ans
+end until ans == a
+puts "right!"
+
+```
+
