@@ -86,3 +86,150 @@ puts "right!"
 
 ```
 
+Second day
+---------
+
+- superclass 的故事
+```ruby
+4.class.superclass
+#=> Integer
+4.class
+#=> Fixnum
+4.class.superclass.superclass
+#=> Numeric
+4.class.superclass.superclass.superclass
+#=> Object
+4.class.superclass.superclass.superclass.superclass
+#=> BasicObject
+4.class.superclass.superclass.superclass.superclass.superclass
+#=> nil
+
+```
+
+###找
+- 读文件
+```ruby
+#!/usr/bin/ruby
+filename = ARGV[0]
+
+#不用代码块
+counter = 1
+f = File.new(filename,"r")
+f.each_line do |line|
+    puts "#{counter}: #{line}"
+    counter += 1
+end
+
+#用代码块 like with in python
+counter = 1
+File.open(filename,"r") do |f|
+    f.each_line do |line|
+        puts "#{counter}: #{line}"
+        counter += 1
+    end
+end
+
+```
+
+- 散列表 和 列表 
+```ruby
+a = {1=>'a',2=>'b',3=>'c'}
+a.keys
+a.values
+c = a.to_a
+b = %w[a b c]
+v=Hash[ c.collect do |p| [p[0], [ p[1] ] ] end ]
+
+```
+
+- 遍历散列
+```ruby
+a = {1=>'a',2=>'b',3=>'c'}
+a.each {|key,value| print key," is ",value,"\n"}
+```
+
+- array当作栈
+```ruby
+a = []
+a.push(1)
+a.push(2,3,4)
+a.pop
+a
+a.last
+a.length
+```
+还能当多重数组,pair
+
+###做
+
+- 打印数组
+```ruby
+a = (1..16).to_a
+(0..3).each{|i| print a[i*4..i*4+4]}
+a.each_slice(4){|l| p l}
+```
+
+- 另一个Tree的初始化方法
+```ruby
+#!/usr/bin/ruby
+class Tree
+    attr_accessor :children, :node_name
+    def initialize(name, children=[])
+        if name.class == String
+            @children = children
+            @node_name = name
+        else name.class == Hash
+            @node_name = name.first[0]
+            @children = []
+            unless name.first[1] == {}
+                name.first[1].each {|k,v| @children.push Tree.new(Hash[k,v])}
+            end
+        end
+    end
+
+    def visit_all(&block) 
+        visit &block
+        children.each { |c| c.visit_all &block}
+    end
+
+    def visit(&block)
+        block.call self
+    end
+end
+
+ruby_tree = Tree.new("Ruby",
+    [Tree.new("Reia"),
+        Tree.new("MacRuby")])
+
+a = {'grandpa' => 
+    {'dad' => 
+        {'child1' => {}, 'child2' => {}},
+    'uncle' => 
+        {'child3' => {}, 'child4' => {}}
+    }}
+ruby_tree2 = Tree.new(a)
+
+puts "visiting a node"
+ruby_tree.visit {|node| puts node.node_name}
+puts
+
+puts "visiting entrire tree"
+ruby_tree.visit_all {|node| puts node.node_name}
+ruby_tree2.visit_all {|node| puts node.node_name}
+
+```
+
+- grep
+```ruby
+#!/usr/bin/ruby
+reg = Regexp.new(ARGV[0])
+filename = ARGV[1]
+
+counter = 1
+File.open(filename,"r") do |f|
+    f.each_line do |line|
+        puts "#{counter}: #{line}" if line =~ reg
+        counter += 1
+    end
+end
+```
